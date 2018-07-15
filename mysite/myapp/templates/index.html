@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>我的网站</title>
+</head>
+<body>
+<h1>欢迎光临我的网站！</h1>
+{%  for item in list %}
+{% if forloop.first %}
+	{% else %}<li>
+		{% endif %}
+<p>{{ forloop.counter0 }}   {{ forloop.revcounter }} 
+{{ forloop.counter }}:{{ item }}</p></li>
+{% if not forloop.last %} | {% endif %}
+{% empty %}
+<p> There are no lists.Only computer programmers.</p>
+{% endfor %}
+{# forloop.parentloop 是一个指向当前循环的上一级循环的 forloop 对象的引用（在嵌套循环的情况下）#}
+{% for country in countries %}
+    <table>
+    {% for city in country.city_list %}
+        <tr>
+        <td>Country #{{ forloop.parentloop.counter }}</td>
+        <td>City #{{ forloop.counter }}</td>
+        <td>{{ city }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endfor %}
+{# 如果要实现多行注释，可以使用`` {% comment %}`` 模板标签 #}
+{% comment %}
+ 下面的例子比较两个模板变量 user 和 currentuser ,
+	只有模板变量，字符串，整数和小数可以作为 {% ifequal %} 标签的参数。 
+{% endcomment %}
+{% ifequal user currentuser %}
+   <h1>welcome</h1>
+{% else %}
+  <h1>No news here</h1>
+{% endifequal %}
+
+{# 这个将显示变量 bio 的前30个词 #}
+{{ bio|truncatewords:"30" }}
+</body>
+</html>
